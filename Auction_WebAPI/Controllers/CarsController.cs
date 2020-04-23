@@ -27,6 +27,7 @@ namespace Auction_WebAPI.Controllers
             return unitOfWork.Cars.Get(id);
         }
 
+        //[Authorize]
         [HttpPost]
         public void Create([FromBody]Car car)
         {
@@ -34,6 +35,7 @@ namespace Auction_WebAPI.Controllers
             unitOfWork.Save();
         }
 
+        //[Authorize(Roles = "admin,manager")]
         [HttpPut]
         public void Edit(int id, [FromBody]Car car)
         {
@@ -41,6 +43,7 @@ namespace Auction_WebAPI.Controllers
             unitOfWork.Save();
         }
 
+        //[Authorize(Roles = "admin,manager")]
         public void Delete(int id)
         {
             unitOfWork.Cars.Delete(id);
