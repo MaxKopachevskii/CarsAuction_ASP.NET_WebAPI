@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29926.136
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auction_WebAPI", "Auction_WebAPI\Auction_WebAPI.csproj", "{E788C151-29E1-4C81-B899-D3FE751B6034}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E788C151-29E1-4C81-B899-D3FE751B6034}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E788C151-29E1-4C81-B899-D3FE751B6034}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E788C151-29E1-4C81-B899-D3FE751B6034}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E788C151-29E1-4C81-B899-D3FE751B6034}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {023F8DAF-381E-4439-97D7-CAFF9D0BD021}
+	EndGlobalSection
+EndGlobal
