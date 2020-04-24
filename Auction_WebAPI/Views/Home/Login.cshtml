@@ -1,0 +1,57 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Login</h2>
+
+<div class="userInfo" style="display:none;">
+    <p>User name: <span class="userName"></span></p>
+    <input type="button" value="Logout" id="logOut" />
+</div>
+<div class="loginForm">
+    <label>Email</label><br />
+    <input type="email" id="emailLogin" /> <br /><br />
+    <label>Password</label><br />
+    <input type="password" id="passwordLogin" /><br /><br />
+    <input type="submit" id="submitLogin" value="Login" />
+</div>
+@section scripts{
+    <script type="text/javascript">
+        $(function () {
+            //...........................
+
+            var tokenKey = "tokenInfo";
+            $('#submitLogin').click(function (e) {
+                e.preventDefault();
+                var loginData = {
+                    grant_type: 'password',
+                    username: $('#emailLogin').val(),
+                    password: $('#passwordLogin').val()
+                };
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/Token',
+                    data: loginData,
+                    success: function (data) {
+                        $('.userName').text(data.userName);
+                        $('.userInfo').css('display', 'block');
+                        $('.loginForm').css('display', 'none');
+
+                        $("tb").val(tokenKey);
+                        // сохраняем в хранилище sessionStorage токен доступа
+                        sessionStorage.setItem(tokenKey, data.access_token);
+                        console.log(data.access_token);
+                    }
+                });
+            });
+
+            $('#logOut').click(function (e) {
+                e.preventDefault();
+                sessionStorage.removeItem(tokenKey);
+            });
+        })
+    </script>
+}
+

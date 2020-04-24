@@ -46,6 +46,16 @@ namespace Auction_WebAPI.Repositories
             return db.Cars;
         }
 
+        public IEnumerable<Car> GetAllCkeckCars()
+        {
+            return db.Cars.Where(item => item.IsCheck == true);
+        }
+
+        public IEnumerable<Car> GetAllUnCheckCars()
+        {
+            return db.Cars.Where(item => item.IsCheck == false);
+        }
+
         public IEnumerable<Car> GetAllSedans()
         {
             return db.Cars.Where(item => item.CategoryId == 1);

@@ -19,7 +19,7 @@ namespace Auction_WebAPI.Controllers
 
         public IEnumerable<Car> GetAll()
         {
-            return unitOfWork.Cars.GetAll();
+            return unitOfWork.Cars.GetAllCkeckCars();
         }
 
         public Car Get(int id)
@@ -27,7 +27,6 @@ namespace Auction_WebAPI.Controllers
             return unitOfWork.Cars.Get(id);
         }
 
-        //[Authorize]
         [HttpPost]
         public void Create([FromBody]Car car)
         {
@@ -35,7 +34,6 @@ namespace Auction_WebAPI.Controllers
             unitOfWork.Save();
         }
 
-        //[Authorize(Roles = "admin,manager")]
         [HttpPut]
         public void Edit(int id, [FromBody]Car car)
         {
@@ -43,7 +41,6 @@ namespace Auction_WebAPI.Controllers
             unitOfWork.Save();
         }
 
-        //[Authorize(Roles = "admin,manager")]
         public void Delete(int id)
         {
             unitOfWork.Cars.Delete(id);
@@ -69,6 +66,22 @@ namespace Auction_WebAPI.Controllers
         public IEnumerable<Car> Universal()
         {
             return unitOfWork.Cars.GetAllUniversal();
+        }
+
+        [Route("api/Cars/{id}/{rate}")]
+        [HttpPut]
+        public void MakeRate(int id,int rate)
+        {
+            var car = unitOfWork.Cars.Get(id);
+            if (car != null)
+            {
+                if ((rate - car.Price) > 999)
+                {
+                    car.Price = rate;
+                    unitOfWork.Cars.Edit(car);
+                    unitOfWork.Save();
+                }
+            }
         }
     }
 }
