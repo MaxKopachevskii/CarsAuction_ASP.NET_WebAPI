@@ -9,6 +9,7 @@ using System.Web.Http;
 
 namespace Auction_WebAPI.Controllers
 {
+    //Controller for interaction with categories
     public class CategoriesController : ApiController
     {
         UnitOfWork unitOfWork;
@@ -17,34 +18,58 @@ namespace Auction_WebAPI.Controllers
             unitOfWork = new UnitOfWork();
         }
 
+        //Get all categories
         public IEnumerable<Category> GetAll()
         {
             return unitOfWork.Categories.GetAll();
         }
 
-        public Category Get(int id)
+        //Get category with id №
+        public HttpResponseMessage Get(int id)
         {
-            return unitOfWork.Categories.Get(id);
+            var category = unitOfWork.Categories.Get(id);
+            if (category != null)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, category);
+            }
+            else
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Category with id = " + id + " not found");
+            }
         }
 
+        //Create new category
         [HttpPost]
-        public void Create([FromBody]Category category)
+        public HttpResponseMessage Create([FromBody]Category category)
         {
-            unitOfWork.Categories.Create(category);
-            unitOfWork.Save();
+            try
+            {
+                unitOfWork.Categories.Create(category);
+                unitOfWork.Save();
+                var message = Request.CreateResponse(HttpStatusCode.OK, category);
+                message.Headers.Location = new Uri(Request.RequestUri + category.Id.ToString());
+                return message;
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
+            }
         }
 
+        //Edit category
         [HttpPut]
-        public void Edit(int id, [FromBody]Category category)
+        public HttpResponseMessage Edit(int id, [FromBody]Category category)
         {
-            unitOfWork.Categories.Edit(category);
-            unitOfWork.Save();
+            try
+            {
+                unitOfWork.Categories.Edit(category);
+                unitOfWork.Save();
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
+            }
         }
-
-        //public void Delete(int id)
-        //{
-        //    unitOfWork.Categories.Delete(id);
-        //    unitOfWork.Save();
-        //}
     }
 }
