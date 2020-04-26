@@ -10,6 +10,7 @@ using System.Web.Http;
 namespace Auction_WebAPI.Controllers
 {
     //The controller that will be used by the manager to confirm / delete lots
+    [Authorize(Roles = "manager")]
     public class ManagerController : ApiController
     {
         UnitOfWork unitOfWork;

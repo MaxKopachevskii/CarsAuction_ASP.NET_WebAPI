@@ -39,6 +39,7 @@ namespace Auction_WebAPI.Controllers
         }
 
         //Create new category
+        [Authorize(Roles = "admin,manager")]
         [HttpPost]
         public HttpResponseMessage Create([FromBody]Category category)
         {
@@ -57,6 +58,7 @@ namespace Auction_WebAPI.Controllers
         }
 
         //Edit category
+        [Authorize(Roles = "admin,manager")]
         [HttpPut]
         public HttpResponseMessage Edit(int id, [FromBody]Category category)
         {

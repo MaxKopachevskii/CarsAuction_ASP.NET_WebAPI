@@ -39,6 +39,7 @@ namespace Auction_WebAPI.Controllers
         }
 
         //Create new car
+        [Authorize]
         [HttpPost]
         public HttpResponseMessage Create([FromBody]Car car)
         {
@@ -58,6 +59,7 @@ namespace Auction_WebAPI.Controllers
         }
 
         //Edit car
+        [Authorize(Roles = "admin,manager")]
         [HttpPut]
         public HttpResponseMessage Edit(int id, [FromBody]Car car)
         {
@@ -98,6 +100,7 @@ namespace Auction_WebAPI.Controllers
 
 
         //Delete car with id №
+        [Authorize(Roles = "admin,manager")]
         public HttpResponseMessage Delete(int id)
         {
             try
@@ -146,6 +149,7 @@ namespace Auction_WebAPI.Controllers
         }
 
         //The method allows you to bet on the lot
+        [Authorize]
         [Route("api/Cars/{id}/{rate}")]
         [HttpPut]
         public HttpResponseMessage MakeRate(int id,int rate)

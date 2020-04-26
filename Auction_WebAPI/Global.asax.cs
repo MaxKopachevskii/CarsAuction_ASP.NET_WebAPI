@@ -15,7 +15,7 @@ namespace Auction_WebAPI
     {
         protected void Application_Start()
         {
-            Database.SetInitializer(new AuctionInitialaizer());
+            Database.SetInitializer(new AppDbInitializer());
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
